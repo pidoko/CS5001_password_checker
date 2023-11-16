@@ -1,9 +1,9 @@
 # Final Project Report
 
-* Student Name:
-* Github Username:
-* Semester:
-* Course:
+* Student Name: Peter Idoko
+* Github Username: pidoko
+* Semester: Fall 2023
+* Course: CS 5001
 
 
 
