@@ -18,6 +18,7 @@ flowchart TD
 ## Description 
 General overview of the project, what you did, why you did it, etc. 
 
+Create a password generator and a password checker according to the NIST SP 800-63B standard. 
 
 ## Key Features
 Highlight some key features of this project that you want to show off/talk about/focus on. 
