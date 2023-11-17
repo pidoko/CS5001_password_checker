@@ -12,12 +12,10 @@ def get_input() -> int:
     Prints error messages and runs until an accurate number is entered
     '''
     try:
-        user_input = int(input("Length of password to be created (10 - 20): "))
-        while user_input < 9 or user_input > 21:
+        user_input = int(input("Enter password length between 10 to 20: "))
+        while user_input < 9 :
             if user_input < 10:
                 print("Enter a value greater than 10.")
-            elif user_input > 20:
-                print("Enter a value less than 20.")
             else:
                 print("Enter an integer between 10 and 20.")
             user_input = int(input("Length of password to be created (10 - 20): "))
