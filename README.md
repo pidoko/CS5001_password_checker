@@ -5,7 +5,15 @@
 * Semester: Fall 2023
 * Course: CS 5001
 
+latex math
+$ n^2 $ hello in-line notation
+$$ n^2 $$
+hello
 
+```mermaid
+flowchart TD
+    A --> B
+```
 
 ## Description 
 General overview of the project, what you did, why you did it, etc. 
