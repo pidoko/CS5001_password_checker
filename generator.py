@@ -8,8 +8,8 @@ ALL_LETTERS_DIGITS = digits + ascii_letters + punctuation
 
 def create_password() -> str:
     '''
-    Checks that password length is greater than 9
-    Prints error messages and runs until an accurate number is entered
+    Password generator that checks that password length is greater than 9,
+    prints error messages and runs until an accurate number is entered.
     '''
     try:
         user_input = int(input("Enter a password length greater than or equal to 10: "))
