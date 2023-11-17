@@ -17,11 +17,15 @@ def create_password() -> str:
             print("Password length too short.")
             user_input = int(input("Enter a password length greater than or equal to 10: "))
         else:
-            # random password generation
-            answer = ''.join(random.choices(ALL_LETTERS_DIGITS, k = user_input))
-            return answer
+            if user_input > 1000:
+                print("Password length too long.")
+            else:
+                # random password generation
+                answer = ''.join(random.choices(ALL_LETTERS_DIGITS, k = user_input))
+                print(answer)
+                return answer
     except ValueError:  # if int cannot cast string
-        print("Enter a number between 10 and 20")
+        print("Enter a number (e.g. 17).")
     except:  # catch all other errors
         print("Something went wrong")
     create_password()
