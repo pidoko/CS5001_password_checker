@@ -13,7 +13,7 @@ def get_input() -> int:
     '''
     try:
         user_input = int(input("Enter password length between 10 to 20: "))
-        while user_input < 9 :
+        while user_input < 10 :
             if user_input < 10:
                 print("Enter a value greater than 10.")
             else:
