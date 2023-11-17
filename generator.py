@@ -1,9 +1,14 @@
 # program to generate passwords
 
-import sys
+import sys, random
 from string import digits, ascii_letters, punctuation
-from random import sample
 
-# original alphanumeric string
+# original alphanumeric string with punctuations
 ALL_LETTERS_DIGITS = digits + ascii_letters + punctuation
-RANDOM_KEY = "".join(sample(list(ALL_LETTERS_DIGITS), len(ALL_LETTERS_DIGITS)))
+
+def main():
+    answer = ''.join(random.choices(ALL_LETTERS_DIGITS, k = 10))
+    return (answer)
+
+if __name__ == "__main__":
+    main()
