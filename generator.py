@@ -12,10 +12,10 @@ def create_password() -> str:
     prints error messages and runs until an accurate number is entered.
     '''
     try:
-        user_input = int(input("Enter a password length greater than or equal to 10: "))
+        user_input = int(input("How long do you want your password to be? minimum 10: "))
         while user_input < 10 :  # NIST SP 800-132 standard
             print("Password length too short.")
-            user_input = int(input("Enter a password length greater than or equal to 10: "))
+            user_input = int(input("How long do you want your password to be? minimum 10: "))
         else:
             if user_input > 1000:
                 print("Password length too long.")
