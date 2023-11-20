@@ -29,10 +29,29 @@ def create_password() -> str:
     except:  # catch all other errors
         print("Something went wrong")
     create_password()
+
+
+def type_password():
+    user_input = input("Create a password of minimum length 10 characters combining lowercase, uppercase, digits and symbols").strip 
+    if len(user_input) < 10:
+        print("Please create a password longer than 9 characters.")
+        type_password()
+    elif user_input.islower():
+        print("Please use an uppercase letter.")
+        type_password()
+    elif user_input.isupper():
+        print("Please use a lowercase letter.")
+        type_password()
+    return user_input    
     
 def main():
     print("Welcome to the Password Generator.")
-    return create_password()
+    main_answer = input("Press 1 to create your password and any other key for a computer generated password")
+    if main_answer == '1':
+        output = type_password()
+    else:
+        output = create_password()
+    return output
 
 if __name__ == "__main__":
     main()
