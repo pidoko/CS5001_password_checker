@@ -31,6 +31,36 @@ def create_password() -> str:
     create_password()
 
 
+def clean_word(word: str) -> str:
+    """
+    Recursively removes punctuation from a word, and reduces it to lower case.
+
+    Examples:
+        >>> clean_word('Hello!')
+        'hello'
+        >>> clean_word('World...')
+        'world'
+        >>> clean_word(' main@msn.com ')
+        'mainmsncom'
+
+    See:
+        https://docs.python.org/3/library/stdtypes.html#str.isalnum
+
+
+    Args:
+        word (str): the word to remove punctuation from
+
+    Returns:
+        str: the word without punctuation
+    """
+    punctuation_set = "!#$%&'()*+,-./:;<=>?@][^_`{|}~ .— " + '"'
+    if len(word) == 0:
+        return ""
+    if word[0] in punctuation_set:
+        return clean_word(word[1:]).casefold()  # skip word if in set
+    return (word[0].casefold() + clean_word(word[1:])).casefold()  # recursively add desirable character
+
+
 def type_password():
     user_input = input("Create a password of minimum length 10 characters combining lowercase, uppercase, digits and symbols").strip 
     if len(user_input) < 10:
@@ -45,7 +75,7 @@ def type_password():
     
     # check if password too similar to top 1,000,000 password list
     with open('password_list.txt') as password_list:
-        if user_input.lower in password_list.read():
+        if clean_word(user_input) in password_list.read():
             print("The password is too weak.")
             type_password()
         else:
