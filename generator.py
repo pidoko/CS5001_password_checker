@@ -37,11 +37,20 @@ def type_password():
         print("Please create a password longer than 9 characters.")
         type_password()
     elif user_input.islower():
-        print("Please use an uppercase letter.")
+        print("Please combine uppercase letters with your password.")
         type_password()
     elif user_input.isupper():
-        print("Please use a lowercase letter.")
+        print("Please combine lowercase letters with your password.")
         type_password()
+    
+    # check if password too similar to top 1,000,000 password list
+    with open('password_list.txt') as password_list:
+        if user_input.lower in password_list.read():
+            print("The password is too weak.")
+            type_password()
+        else:
+            pass
+        
     return user_input    
     
 def main():
