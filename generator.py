@@ -6,6 +6,7 @@ from string import digits, ascii_letters, punctuation
 # original alphanumeric string with punctuations
 ALL_LETTERS_DIGITS = digits + ascii_letters + punctuation
 
+
 def create_password(user_input: int) -> str:
     """
     Random password generator that checks that password length is greater than 11, prints error messages and runs until an appropriate length is entered.
@@ -101,13 +102,13 @@ def type_password(user_input: str) -> str:
         with open('password_list.txt') as password_list:
             # check password in lowercase without punctuations
             if clean_word(user_input) in password_list.read():
-                print("The password is too weak.")
+                print("This password is found in a list of commonly used passwords.")
                 return type_password(input("Create a password of minimum 12 characters combining lowercase, uppercase, digits and symbols"))
             else:
                 with open('password_list.txt') as password_list:
                     # check password in lowercase without punctuations and without numbers
                     if (''.join(filter(lambda x: not x.isdigit(), clean_word(user_input)))) in password_list.read():
-                        print("Please create a password that is not found in the commonly used passwords list.")
+                        print("This password is found in a list of commonly used passwords.")
                         return type_password(input("Create a password of minimum 12 characters combining lowercase, uppercase, digits and symbols"))
                     else:
                         return user_input
@@ -132,6 +133,7 @@ def main():
     time = round(((len(ALL_LETTERS_DIGITS) ** len(output)) / (3500000000 * 6.308 * (10 ** 7))), 0)  # time to crack based on 3.5GHz processor speed
 
     return print(f"Your password is {output}\nIt has an entropy of {entropy}.\nIt will take about {time} years to crack using brute-force.")
+
 
 if __name__ == "__main__":
     main()
