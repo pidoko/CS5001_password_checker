@@ -103,13 +103,11 @@ def type_password(user_input: str) -> str:
             # check password in lowercase without punctuations
             if clean_word(user_input) in password_list.read():
                 print("This password is found in a list of commonly used passwords.")
-                return type_password(input("Create a password of minimum 12 characters combining lowercase, uppercase, digits and symbols"))
             else:
                 with open('password_list.txt') as password_list:
                     # check password in lowercase without punctuations and without numbers
                     if (''.join(filter(lambda x: not x.isdigit(), clean_word(user_input)))) in password_list.read():
-                        print("This password is found in a list of commonly used passwords.")
-                        return type_password(input("Create a password of minimum 12 characters combining lowercase, uppercase, digits and symbols"))
+                        print("The sequence of alphabets in your password is found in a list of commonly used passwords.")
                     else:
                         return user_input
 
@@ -130,7 +128,7 @@ def main():
     # Measure of how hard it is to use brute-force to guess the password.
     entropy = round(math.log2(len(ALL_LETTERS_DIGITS) ** len(output)), 2)
     # Estimate at how long it takes to crack the password using a PC with a 3.5GHz processor
-    time = round(((len(ALL_LETTERS_DIGITS) ** len(output)) / (3500000000 * 6.308 * (10 ** 7))), 0)  # time to crack based on 3.5GHz processor speed
+    time = round(((len(ALL_LETTERS_DIGITS) ** len(output)) / (3.154 * (10 ** 8) * (10 ** 9))), 0)  # years to crack based on 1billion passwords per second
 
     return print(f"Your password is {output}\nIt has an entropy of {entropy}.\nIt will take about {time} years to crack using brute-force.")
 
