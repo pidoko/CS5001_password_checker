@@ -99,11 +99,18 @@ def type_password(user_input: str) -> str:
     else:
         # check if password too similar to top 1,000,000 password list
         with open('password_list.txt') as password_list:
+            # check password in lowercase without punctuations
             if clean_word(user_input) in password_list.read():
                 print("The password is too weak.")
                 return type_password(input("Create a password of minimum 12 characters combining lowercase, uppercase, digits and symbols"))
             else:
-                return user_input
+                with open('password_list.txt') as password_list:
+                    # check password in lowercase without punctuations and without numbers
+                    if (''.join(filter(lambda x: not x.isdigit(), clean_word(user_input)))) in password_list.read():
+                        print("Please create a password that is not found in the commonly used passwords list.")
+                        return type_password(input("Create a password of minimum 12 characters combining lowercase, uppercase, digits and symbols"))
+                    else:
+                        return user_input
 
     return type_password(input("Create a password of minimum 12 characters combining lowercase, uppercase, digits and symbols"))
 
