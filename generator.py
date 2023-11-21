@@ -88,32 +88,31 @@ def type_password(user_input: str) -> str:
     # minimum 12 characters to increase password entropy
     if len(user_input) < 12:
         print("Please create a password longer than 11 characters.")
-        user_input = input("Create a password of minimum 12 characters combining lowercase, uppercase, digits and symbols")
-        return type_password(user_input)
     elif user_input.islower():
         print("Please combine uppercase letters with your password.")
-        user_input = input("Create a password of minimum 12 characters combining lowercase, uppercase, digits and symbols")
-        return type_password(user_input)
     elif user_input.isupper():
         print("Please combine lowercase letters with your password.")
-        user_input = input("Create a password of minimum 12 characters combining lowercase, uppercase, digits and symbols")
-        return type_password(user_input)
+    elif user_input.isalpha():
+        print("Please include a number in your password")
+    elif user_input.isalnum():
+        print("Please include a special character in your password")
     else:
         # check if password too similar to top 1,000,000 password list
         with open('password_list.txt') as password_list:
             if clean_word(user_input) in password_list.read():
                 print("The password is too weak.")
-                user_input = input("Create a password of minimum 12 characters combining lowercase, uppercase, digits and symbols")
-                return type_password(user_input)
+                return type_password(input("Create a password of minimum 12 characters combining lowercase, uppercase, digits and symbols"))
             else:
                 return user_input
+
+    return type_password(input("Create a password of minimum 12 characters combining lowercase, uppercase, digits and symbols"))
 
 
 def main():
     print("Welcome to the Password Generator.")
 
-    main_answer = input("Press 1 to create your password and any other key for a computer generated password")
-    if main_answer == '1':
+    selection = input("Press 1 to create your password and any other key for a computer generated password")
+    if selection == '1':
         user_input = input("Create a password of minimum 12 characters combining lowercase, uppercase, digits and symbols")
         output = type_password(user_input)
     else:
