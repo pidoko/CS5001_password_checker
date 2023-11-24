@@ -9,7 +9,8 @@ ALL_LETTERS_DIGITS = digits + ascii_letters + punctuation
 
 def create_password(user_input: int) -> str:
     """
-    Random password generator that checks that password length is greater than 11, prints error messages and runs until an appropriate length is entered.
+    Random password generator that checks that password length is greater than 11,
+    prints error messages and runs until an appropriate length is entered.
 
     Examples:
         >>> create_password()
@@ -26,11 +27,11 @@ def create_password(user_input: int) -> str:
         # minimum 12 characters to increase password entropy
         while user_input < 12 :  # NIST SP 800-132 standard
             print("Password length too short.")
-            user_input = int(input("How long do you want your password to be? minimum 12: "))
+            user_input = int(input("How long do you want your password to be? minimum 12, max 20: "))
         else:
-            if user_input > 1000:
-                print("Password length too long.")
-                user_input = int(input("How long do you want your password to be? minimum 12: "))
+            if user_input > 20:  # mastercard's limit
+                print("Password length longer than 20.")
+                user_input = int(input("How long do you want your password to be? minimum 12, max 20: "))
             else:
                 # random password generation
                 answer = ''.join(random.choices(ALL_LETTERS_DIGITS, k = user_input))
@@ -74,17 +75,22 @@ def clean_word(word: str) -> str:
 
 def type_password(user_input: str) -> str:
     """
-    Human generated password creator that checks that password meets standard, prints error messages and runs until an accurate length is entered.
+    Takes in user generated password, checks the passwords against various rules,
+    prints error messages notifying client of issue if the inputted entry is invalid,
+    ,runs until an appropriate password is entered, and returns a string 
+    (EXPLAIN WHY IN README FILE)
 
     Examples:
-        >>> type_password()
-        'Ugh12345!!'
+        >>> type_password('Denyak123!!!')
+        'Denyak123!!!'
+        >>> type_password('Denyak123!')
+        'Please create a password longer than 11 characters.'
 
     Args:
-        user_input (int): password length
+        user_input (str): user-generated password
 
     Returns:
-        str: the password
+        str: user-generated password
     """
     # minimum 12 characters to increase password entropy
     if len(user_input) < 12:
@@ -114,24 +120,4 @@ def type_password(user_input: str) -> str:
     return type_password(input("Create a password of minimum 12 characters combining lowercase, uppercase, digits and symbols"))
 
 
-def main():
-    print("Welcome to the Password Generator.")
 
-    selection = input("Press 1 to create your password and any other key for a computer generated password")
-    if selection == '1':
-        user_input = input("Create a password of minimum 12 characters combining lowercase, uppercase, digits and symbols")
-        output = type_password(user_input)
-    else:
-        user_input = int(input("How long do you want your password to be? minimum 12: "))
-        output = create_password(user_input)
-
-    # Measure of how hard it is to use brute-force to guess the password.
-    entropy = round(math.log2(len(ALL_LETTERS_DIGITS) ** len(output)), 2)
-    # Estimate at how long it takes to crack the password using a PC with a 3.5GHz processor
-    time = round(((len(ALL_LETTERS_DIGITS) ** len(output)) / (3.154 * (10 ** 8) * (10 ** 9))), 0)  # years to crack based on 1billion passwords per second
-
-    return print(f"Your password is {output}\nIt has an entropy of {entropy}.\nIt will take about {time} years to crack using brute-force.")
-
-
-if __name__ == "__main__":
-    main()
