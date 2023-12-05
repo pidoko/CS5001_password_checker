@@ -1,47 +1,78 @@
 # program to generate passwords
-
 import sys, random, math
 from string import digits, ascii_letters, punctuation
 
 # original alphanumeric string with punctuations
 ALL_LETTERS_DIGITS = digits + ascii_letters + punctuation
 
+# text file with one million common passwords
+PASSWORD_FILE = 'password_list.txt'
+
+def check_value(user_input: int) -> int:
+    ''' Checks if value of password length is greater than 11.
+        If it is, it outputs 1, otherwise 0.
+
+        Examples:
+            >>> check_value(10)
+            '0'
+            >>> check_value(15)
+            '1' 
+
+        Args:
+            user_input (int): length of password to be created
+
+        Returns:
+            int: 1 or 0
+    '''
+
+    try: 
+        if user_input > 11:  # No upper password limit   
+            return 1
+        else:  # Ensures a minimum number of password permutations or entropy
+            return 0
+    except: # if int cannot cast string or any other errors.
+        return 0
+
+def check_length(user_input: str) -> int:
+    ''' Checks if password length is greater than 12.
+        If it is, it outputs 1, otherwise 0.
+
+        Examples:
+            >>> check_length(10)
+            '0'
+            >>> check_length(15)
+            '1' 
+
+        Args:
+            user_input (str): user-generated password
+
+        Returns:
+            int: 1 or 0
+    '''
+
+    if len(user_input) < 12:  # Ensures a minimum number of password permutations or entropy
+        return 0
+    else:  # No upper password limit
+        return 1
 
 def create_password(user_input: int) -> str:
-    """
-    Random password generator that checks that password length is greater than 11,
-    prints error messages and runs until an appropriate length is entered.
+    """  Creates a random password of user-specified length.
 
     Examples:
-        >>> create_password()
-        'E~Bu1U%yBSsU'
+        >>> create_password(15)
+        '09"Ea<~t&\\iLu?m'  # different password each time
+        >>> create_password(5)
+        '~viLu'  
 
     Args:
         user_input (int): password length
 
     Returns:
-        str: the password
+        answer (str): the password
     """
-
-    try:
-        # minimum 12 characters to increase password entropy
-        while user_input < 12 :  # NIST SP 800-132 standard
-            print("Password length too short.")
-            user_input = int(input("How long do you want your password to be? minimum 12, max 20: "))
-        else:
-            if user_input > 20:  # mastercard's limit
-                print("Password length longer than 20.")
-                user_input = int(input("How long do you want your password to be? minimum 12, max 20: "))
-            else:
-                # random password generation
-                answer = ''.join(random.choices(ALL_LETTERS_DIGITS, k = user_input))
-                return answer
-    except ValueError:  # if int cannot cast string
-        print("Enter a number (e.g. 17).")
-    except:  # catch all other errors
-        print("Something went wrong")
-    create_password(user_input)
-
+    # random password generation
+    answer = ''.join(random.choices(ALL_LETTERS_DIGITS, k = user_input))
+    return answer
 
 def clean_word(word: str) -> str:
     """
@@ -72,13 +103,28 @@ def clean_word(word: str) -> str:
         return clean_word(word[1:]).casefold()  # skip word if in set
     return (word[0].casefold() + clean_word(word[1:])).casefold()  # recursively add desirable character
 
+def common_password(PASSWORD_FILE: str, user_input: str) -> int:
+    with open('password_list.txt') as password_list:
+        # check password in lowercase without punctuations
+        if clean_word(user_input) in password_list.read():
+            return 0
+        else:
+            return 1
+
+def common_password_num(PASSWORD_FILE: str, user_input: str) -> int:
+    with open('password_list.txt') as password_list:
+        # check password in lowercase without punctuations and without numbers
+        if (''.join(filter(lambda x: not x.isdigit(), clean_word(user_input)))) in password_list.read():
+            return 0
+        else:
+            return 1
+
 
 def type_password(user_input: str) -> str:
-    """
-    Takes in user generated password, checks the passwords against various rules,
-    prints error messages notifying client of issue if the inputted entry is invalid,
-    ,runs until an appropriate password is entered, and returns a string 
-    (EXPLAIN WHY IN README FILE)
+    """  Takes in user generated password, checks the passwords against various rules,
+        prints error messages notifying client of issue if the inputted entry is invalid,
+        ,runs until an appropriate password is entered, and returns a string 
+        (EXPLAIN WHY IN README FILE)
 
     Examples:
         >>> type_password('Denyak123!!!')
@@ -93,7 +139,7 @@ def type_password(user_input: str) -> str:
         str: user-generated password
     """
     # minimum 12 characters to increase password entropy
-    if len(user_input) < 12:
+    if check_length(user_input) == 0:
         print("Please create a password longer than 11 characters.")
     elif user_input.islower():
         print("Please combine uppercase letters with your password.")
@@ -105,19 +151,10 @@ def type_password(user_input: str) -> str:
         print("Please include a special character in your password")
     else:
         # check if password too similar to top 1,000,000 password list
-        with open('password_list.txt') as password_list:
-            # check password in lowercase without punctuations
-            if clean_word(user_input) in password_list.read():
-                print("This password is found in a list of commonly used passwords.")
+        if common_password(PASSWORD_FILE, user_input) == 0:
+            print("This password is found in a list of commonly used passwords.")
+        else:
+            if common_password_num(PASSWORD_FILE, user_input) == 0:
+                print("The sequence of alphabets in your password is found in a list of commonly used passwords.")
             else:
-                with open('password_list.txt') as password_list:
-                    # check password in lowercase without punctuations and without numbers
-                    if (''.join(filter(lambda x: not x.isdigit(), clean_word(user_input)))) in password_list.read():
-                        print("The sequence of alphabets in your password is found in a list of commonly used passwords.")
-                    else:
-                        return user_input
-
-    return type_password(input("Create a password of minimum 12 characters combining lowercase, uppercase, digits and symbols"))
-
-
-
+                return user_input

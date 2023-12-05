@@ -1,10 +1,21 @@
 # Runs the password generator
+import sys, random, math
+from string import digits, ascii_letters, punctuation
+
+# original alphanumeric string with punctuations
+ALL_LETTERS_DIGITS = digits + ascii_letters + punctuation
 
 from generator import (
     create_password,
-    clean_password,
     type_password,
 )
+
+def calculator(ALL_LETTERS_DIGITS: str, output: str) -> tuple:
+    # Measure of how hard it is to use brute-force to guess the password.
+    entropy = round(math.log2(len(ALL_LETTERS_DIGITS) ** len(output)), 2)
+    # Estimate at how long it takes to crack the password using a PC with a 3.5GHz processor
+    time = round(((len(ALL_LETTERS_DIGITS) ** len(output)) / (3.154 * (10 ** 8) * (10 ** 9))), 0)  # years to crack based on 1billion passwords per second
+    return (entropy, time)
 
 def main():
     print("Welcome to the Password Generator.")
@@ -16,11 +27,6 @@ def main():
     else:
         user_input = int(input("How long do you want your password to be? minimum 12, max 20: "))
         output = create_password(user_input)
-
-    # Measure of how hard it is to use brute-force to guess the password.
-    entropy = round(math.log2(len(ALL_LETTERS_DIGITS) ** len(output)), 2)
-    # Estimate at how long it takes to crack the password using a PC with a 3.5GHz processor
-    time = round(((len(ALL_LETTERS_DIGITS) ** len(output)) / (3.154 * (10 ** 8) * (10 ** 9))), 0)  # years to crack based on 1billion passwords per second
 
     return print(f"Your password is {output}\nIt has an entropy of {entropy}.\nIt will take about {time} years to crack using brute-force.")
 
