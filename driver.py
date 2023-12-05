@@ -16,7 +16,7 @@ def entropy(ALL_LETTERS_DIGITS: str, output: str) -> float:
     return answer
 
 def time(ALL_LETTERS_DIGITS: str, output: str) -> float:
-    # Estimate at how long it takes to crack the password using a PC with a 3.5GHz processor
+    # Estimate at how long it takes to crack the password using a PC with a 3.5GHz rate of attempts
     answer = round(((len(ALL_LETTERS_DIGITS) ** len(output)) / (3.154 * (10 ** 8) * (10 ** 9))), 0)  # years to crack based on 1billion passwords per second
     return answer
 
