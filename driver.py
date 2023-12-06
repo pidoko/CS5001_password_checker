@@ -1,6 +1,7 @@
 # Runs the password generator
 import sys, random, math
 from string import digits, ascii_letters, punctuation
+from generator import check_length, check_value
 
 # original alphanumeric string with punctuations
 ALL_LETTERS_DIGITS = digits + ascii_letters + punctuation
@@ -22,19 +23,25 @@ def time(ALL_LETTERS_DIGITS: str, output: str) -> float:
 
 def main():
     print("Welcome to the Password Generator.")
-
     selection = input("Press 1 to create your password and any other key for a computer generated password")
     if selection == '1':
-        user_input = input("Create a password of minimum 12, max 20 characters combining lowercase, uppercase, digits and symbols")
-        output = type_password(user_input)
+        user_input = input("Create a password of minimum 12 characters combining lowercase, uppercase, digits and symbols")
+        if check_length(user_input) == 1:
+            output = type_password(user_input)
+        else:
+            print("Password length must be longer than 11.")
     else:
-        user_input = int(input("How long do you want your password to be? minimum 12, max 20: "))
-        output = create_password(user_input)
-    
-    entropy = entropy(ALL_LETTERS_DIGITS, output)
-    time = time(ALL_LETTERS_DIGITS, output)
+        user_input = int(input("How long do you want your password to be? minimum 12: "))
+        if check_value(user_input) == 1:
+            output = create_password(user_input)
+            entropy_value = entropy(ALL_LETTERS_DIGITS, output)
+            time_value = time(ALL_LETTERS_DIGITS, output)
+            answer = "Your password is "+output+"\nIt has an entropy of "+str(entropy_value)+".\nIt will take about "+str(time_value)+" years to crack using brute-force."
+            return answer
+        else:
+            print("Password length must be longer than 11.")
 
-    return print(f"Your password is {output}\nIt has an entropy of {entropy}.\nIt will take about {time} years to crack using brute-force.")
+    return 0
 
 if __name__ == "__main__":
     main()

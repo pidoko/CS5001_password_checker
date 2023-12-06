@@ -70,6 +70,7 @@ def create_password(user_input: int) -> str:
     Returns:
         answer (str): the password
     """
+
     # random password generation
     answer = ''.join(random.choices(ALL_LETTERS_DIGITS, k = user_input))
     return answer
@@ -96,6 +97,7 @@ def clean_word(word: str) -> str:
     Returns:
         str: the word without punctuation
     """
+
     punctuation_set = "!#$%&'()*+,-./:;<=>?@][^_`{|}~ .— " + '"'
     if len(word) == 0:
         return ""
@@ -104,14 +106,42 @@ def clean_word(word: str) -> str:
     return (word[0].casefold() + clean_word(word[1:])).casefold()  # recursively add desirable character
 
 def common_password(PASSWORD_FILE: str, user_input: str) -> int:
+    '''  Check password in lowercase without punctuations
+         
+        Examples:
+        >>> common_password(PASSWORD_FILE, "Yankees12345!")
+        1
+        >>> common_password(PASSWORD_FILE, "Denyak1234!!!")
+        1
+
+        Args:
+            PASSWORD_FILE (str), user_input (str)
+        
+        Returns:
+            0 or 1
+    '''
     with open('password_list.txt') as password_list:
-        # check password in lowercase without punctuations
+        
         if clean_word(user_input) in password_list.read():
             return 0
         else:
             return 1
 
 def common_password_num(PASSWORD_FILE: str, user_input: str) -> int:
+    '''  Check password in lowercase without punctuations and numbers
+         
+        Examples:
+        >>> common_password_num(PASSWORD_FILE, "Yankees12345!")
+        0
+        >>> common_password_num(PASSWORD_FILE, "denyak")
+        1
+        
+        Args:
+            PASSWORD_FILE (str), user_input (str)
+        
+        Returns:
+            0 or 1
+    '''
     with open('password_list.txt') as password_list:
         # check password in lowercase without punctuations and without numbers
         if (''.join(filter(lambda x: not x.isdigit(), clean_word(user_input)))) in password_list.read():
