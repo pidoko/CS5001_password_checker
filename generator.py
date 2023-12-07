@@ -184,19 +184,29 @@ def type_password(user_input: str) -> str:
     if check_length(user_input) == 0:
         return "Please create a password longer than 11 characters."
     elif user_input.islower():
-        return "Please combine uppercase letters with your password.")
+        return "Please combine uppercase letters with your password."
     elif user_input.isupper():
-        return "Please combine lowercase letters with your password.")
+        return "Please combine lowercase letters with your password."
     elif user_input.isalpha():
-        return "Please include a number in your password")
+        return "Please include a number in your password"
     elif user_input.isalnum():
-        return "Please include a special character in your password")
+        return "Please include a special character in your password"
     else:
         # check if password too similar to top 1,000,000 password list
         if common_password(PASSWORD_FILE, user_input) == 0:
-            return "This password is found in a list of commonly used passwords.")
+            return "This password is found in a list of commonly used passwords."
         else:
             if common_password_num(PASSWORD_FILE, user_input) == 0:
-                return "This password is found in a list of commonly used passwords.")
+                return "This password is found in a list of commonly used passwords."
             else:
                 return user_input
+
+def entropy(ALL_LETTERS_DIGITS: str, output: str) -> float:
+    # Measure of how hard it is to use brute-force to guess the password.
+    answer = round(math.log2(len(ALL_LETTERS_DIGITS) ** len(output)), 2)
+    return answer
+
+def time(ALL_LETTERS_DIGITS: str, output: str) -> float:
+    # Estimate at how long it takes to crack the password using a PC with a 3.5GHz rate of attempts
+    answer = round(((len(ALL_LETTERS_DIGITS) ** len(output)) / (3.154 * (10 ** 8) * (10 ** 9))), 0)  # years to crack based on 1billion passwords per second
+    return answer
