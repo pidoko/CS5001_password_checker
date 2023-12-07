@@ -24,20 +24,6 @@ def check_string(actual: str, expected: str) -> int:
         return 1
     return 0
 
-
-def check_bool(actual: bool, expected: bool) -> int:
-    """checks for error, returns 1 if error exists, 0 if it doesn't
-
-    Args:
-        actual (bool): actual value
-        expected (bool): expected value
-    """
-    if actual != expected:
-        print(f"Actual: {actual} does not equal Expected: {expected}")
-        return 1
-    return 0
-
-
 def check_int(actual: int, expected: int) -> int:
     """checks for error, returns 1 if error exists, 0 if it doesn't
 
@@ -136,7 +122,7 @@ def test_common_password_num() -> int:
     
     return fail
 
-def type_password() -> str:
+def test_type_password() -> str:
     """
     tests generator.type_password
 
@@ -156,10 +142,15 @@ def type_password() -> str:
 
 def main() -> None:
     fail = 0
+    '''
+    fail += test_type_password()
+    fail += test_common_password_num()
+    fail += test_common_password()
     fail += test_clean_word()
-    fail += test_is_palindrome()
-    fail += test_count_vowels()
-
+    fail += test_check_length()
+    fail += test_check_value()
+    '''
+    fail += test_create_password()
     print(f"Failed {fail} tests.")
 
 

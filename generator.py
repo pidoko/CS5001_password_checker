@@ -182,21 +182,21 @@ def type_password(user_input: str) -> str:
     """
     # minimum 12 characters to increase password entropy
     if check_length(user_input) == 0:
-        print("Please create a password longer than 11 characters.")
+        return "Please create a password longer than 11 characters."
     elif user_input.islower():
-        print("Please combine uppercase letters with your password.")
+        return "Please combine uppercase letters with your password.")
     elif user_input.isupper():
-        print("Please combine lowercase letters with your password.")
+        return "Please combine lowercase letters with your password.")
     elif user_input.isalpha():
-        print("Please include a number in your password")
+        return "Please include a number in your password")
     elif user_input.isalnum():
-        print("Please include a special character in your password")
+        return "Please include a special character in your password")
     else:
         # check if password too similar to top 1,000,000 password list
         if common_password(PASSWORD_FILE, user_input) == 0:
-            print("This password is found in a list of commonly used passwords.")
+            return "This password is found in a list of commonly used passwords.")
         else:
             if common_password_num(PASSWORD_FILE, user_input) == 0:
-                print("This password is found in a list of commonly used passwords.")
+                return "This password is found in a list of commonly used passwords.")
             else:
                 return user_input
