@@ -1,3 +1,15 @@
+"""
+Final Project: Password generator and checker    
+=======================
+Course:   CS 5001
+Semester: Fall 2023
+Student:  Peter Idoko
+
+Functions that generate random passwords greater than 12 in length, 
+and allows users to create passwords that meet uppercase,
+ lowercase, number, and special character requirements.
+"""
+
 # program to generate passwords
 import sys, random, math
 from string import digits, ascii_letters, punctuation
@@ -38,9 +50,9 @@ def check_length(user_input: str) -> int:
         If it is, it outputs 1, otherwise 0.
 
         Examples:
-            >>> check_length(10)
+            >>> check_length("@#faf")
             '0'
-            >>> check_length(15)
+            >>> check_length("@#*(G_h'J-wdf")
             '1' 
 
         Args:
@@ -185,6 +197,6 @@ def type_password(user_input: str) -> str:
             print("This password is found in a list of commonly used passwords.")
         else:
             if common_password_num(PASSWORD_FILE, user_input) == 0:
-                print("The sequence of alphabets in your password is found in a list of commonly used passwords.")
+                print("This password is found in a list of commonly used passwords.")
             else:
                 return user_input

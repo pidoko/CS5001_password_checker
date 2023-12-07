@@ -1,3 +1,14 @@
+"""
+Final Project: Password generator and checker    
+=======================
+Course:   CS 5001
+Semester: Fall 2023
+Student:  Peter Idoko
+
+Functions that calculate password entropy and brute-force crack time.
+Main function that utilizes the functions in the generator.py file to run the password generator
+"""
+
 # Runs the password generator
 import sys, random, math
 from string import digits, ascii_letters, punctuation
@@ -37,9 +48,11 @@ def main():
             entropy_value = entropy(ALL_LETTERS_DIGITS, output)
             time_value = time(ALL_LETTERS_DIGITS, output)
             answer = "Your password is "+output+"\nIt has an entropy of "+str(entropy_value)+".\nIt will take about "+str(time_value)+" years to crack using brute-force."
-            return answer
+            print(answer)
+            return 1
         else:
             print("Password length must be longer than 11.")
+            return 0
 
     return 0
 
