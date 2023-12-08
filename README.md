@@ -17,11 +17,13 @@ flowchart TD
 
 ## Description 
 General overview of the project, what you did, why you did it, etc. 
+I created a password generator that supports automatic or user generation.For the automatic generator, the passwords have a minimum of 12 characters and for the user generated passwords there are multiple checks to ensure a minimum entropy of 72.
 
-Create a password generator and a password checker according to the NIST SP 800-63B standard. 
+I completed this project because I use 1Password everyday and I am interested in how they created they password generator feature.
 
 ## Key Features
 Highlight some key features of this project that you want to show off/talk about/focus on. 
+Key features include a check against a file containing 1 million of the most common passwords to ensure that the user does not create one of those passwords. 
 
 ## Guide
 How do we run your project? What should we do to see it in action? - Note this isn't installing, this is actual use of the project.. If it is a website, you can point towards the gui, use screenshots, etc talking about features. 

@@ -29,6 +29,11 @@ def main():
         user_input = input("Create a password of minimum 12 characters combining lowercase, uppercase, digits and symbols")
         if check_length(user_input) == 1:
             output = type_password(user_input)
+            entropy_value = entropy(ALL_LETTERS_DIGITS, output)
+            time_value = time(ALL_LETTERS_DIGITS, output)
+            answer = "Your password is "+output+"\nIt has an entropy of "+str(entropy_value)+".\nIt will take about "+str(time_value)+" years to crack using brute-force."
+            print(answer)
+            return 1
         else:
             print("Password length must be longer than 11.")
     else:
