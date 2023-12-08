@@ -1,13 +1,6 @@
-"""
-Final Project: Password generator and checker    
-=======================
-Course:   CS 5001
-Semester: Fall 2023
-Student:  Peter Idoko
-
-Functions that calculate password entropy and brute-force crack time.
-Main function that utilizes the functions in the generator.py file to run the password generator
-"""
+#import Flask and create an instance of the Flask object
+from flask import Flask
+app = Flask(__name__)
 
 # Runs the password generator
 import sys, random, math
@@ -22,6 +15,8 @@ from generator import (
     type_password,
 )
 
+#Flask's app.route decorator to map the URL route / to main function
+@app.route("/")
 def main():
     print("Welcome to the Password Generator.")
     selection = input("Press 1 to type your password and any other key for a computer generated one")
@@ -32,10 +27,9 @@ def main():
             entropy_value = entropy(ALL_LETTERS_DIGITS, output)
             time_value = time(ALL_LETTERS_DIGITS, output)
             answer = "Your password is "+output+"\nIt has an entropy of "+str(entropy_value)+".\nIt will take about "+str(time_value)+" years to crack using brute-force."
-            print(answer)
-            return 1
+            return answer
         else:
-            print("Password length must be longer than 11.")
+            return "Password length must be longer than 11."
     else:
         user_input = int(input("How long do you want your password to be? minimum 12: "))
         if check_value(user_input) == 1:
@@ -43,13 +37,7 @@ def main():
             entropy_value = entropy(ALL_LETTERS_DIGITS, output)
             time_value = time(ALL_LETTERS_DIGITS, output)
             answer = "Your password is "+output+"\nIt has an entropy of "+str(entropy_value)+".\nIt will take about "+str(time_value)+" years to crack using brute-force."
-            print(answer)
-            return 1
+            #print(answer)
+            return answer
         else:
-            print("Password length must be longer than 11.")
-            return 0
-
-    return 0
-
-if __name__ == "__main__":
-    main()
+            return "Password length must be longer than 11."
