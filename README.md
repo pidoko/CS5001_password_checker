@@ -21,8 +21,6 @@ There are six checks when the user is typing their password to ensure that they 
 To run the project using Visual Studio, open the generator file, then hit Run at the top of the screen or right-click the generator.py file in the explorer pane and select "Run in interactive mode". Then, following the terminal prompts type and hit Return to interact with the program.
 
 ## Installation Instructions
-If we wanted to run this project locally, what would we need to do?  If we need to get API key's include that information, and also command line startup commands to execute the project. If you have a lot of dependencies, you can also include a requirements.txt file, but make sure to include that we need to run `pip install -r requirements.txt` or something similar.
-
 Open the CS5001_password_checker folder in Visual Studio, then run pip install -r requirements.txt in the Terminal, then right-click the driver.py file in the Explorer pane in VS Studio and select Run in Interactive Window.
 
 ## Code Review
@@ -31,15 +29,15 @@ The main function in driver.py handles the user interactions such as prompts to 
 The generator.py file contains almost all the functions and one of highlight is clean_word which recursively removes punctuation from a word, and reduces it to lower case.
 
 This is the string of punctuation characters to remove
-'''python
+```python
 punctuation_set = "!#$%&'()*+,-./:;<=>?@][^_`{|}~ .— " + '"'
-'''
+```
 This is to recursively skip any character found in the punctuation_set variable and turn the remaining characters to lowercase.
-'''python
+```python
 if word[0] in punctuation_set:
         return clean_word(word[1:]).casefold()  # skip word if in set
     return (word[0].casefold() + clean_word(word[1:])).casefold()
-'''
+```
 
 ### Major Challenges
 Key aspects I struggled on was checking whether the password typed was already in the dictionary containing one million most common passwords because I wanted to catch variations of the easy password with a check when there are no punctuations and numbers.
@@ -50,11 +48,9 @@ Also, I initially struggled on figuring out how to publish the password checker 
 I documented running the project using text output.
 
 ## Testing
-I created a test file and ran tests for edge cases to ensure the code was correct. 
-
+I created a test file for generator.py and ran tests for edge cases to ensure the code was correct. 
 
 ## Missing Features / What's Next
-Focus on what you didn't get to do, and what you would do if you had more time, or things you would implement in the future. 
 What I would like to do if I had the time is add a feature to generate user-friendly passwords that still meet the minimum entropy requirements such as "jumper-whole_shorts@2007" rather than "adpjg&S89*^%4".
 
 I also would improve the Flask app so that it was a more responsive webpage to interest people about the topic of setting secure passwords.
