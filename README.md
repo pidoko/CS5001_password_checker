@@ -56,6 +56,6 @@ What I would like to do if I had the time is add a feature to generate user-frie
 I also would improve the Flask app so that it was a more responsive webpage to interest people about the topic of setting secure passwords.
 
 ## Final Reflection
-I started off this course with uncertainty whether I could make it in an intensive programming course but the course delivery, teaching quality and university support have been great at ensuring that I understood and planned the concepts. I learned about inclusive design in programming and the importance of starting early to consider inclusive design because typically more people benefit from these designs. I need to learn more about abstract data types so I will be revisiting those modules soon. 
+I started off this course with uncertainty whether I could make it in an intensive programming course but the course delivery, teaching quality and university support have been great at ensuring that I understood the concepts. I learned about inclusive design in programming and the importance of starting early to consider inclusive design because typically more people benefit from these designs. I need to learn more about abstract data types so I will be revisiting those modules soon. 
 
 Key takeaways are to keep it simple and think inclusively.
